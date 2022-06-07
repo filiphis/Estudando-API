@@ -30,4 +30,26 @@ async function getUserDetails(userID) {
   }
 }
 
-getUserDetails(2);
+// Buscando user manualmente, quando atualiza a pagina kk
+getUserDetails(3);
+
+async function addUser(user) {
+  const newUser = await fetch(URL, {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      "content-type": "application/json; charset=UTF-8",
+    },
+  });
+  const data = await newUser.json();
+  console.log("Post: ", data);
+}
+
+const newUser = {
+  name: "Rafaela Patricio",
+  avatar: "https://picsum.photos/600/600",
+  city: "Cascavel",
+};
+
+// Adiciona o user quando atualiza a pagina!
+addUser(newUser);
