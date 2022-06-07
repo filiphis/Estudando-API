@@ -35,6 +35,7 @@ app.route("/delete/:id").delete((req, res) => {
 app.route("/body-params").post((req, res) => {
   const { first_name, last_name, age } = req.body;
   res.send(first_name);
+  // res.send(req.body);
 });
 
 //Estudando Route Params
@@ -42,4 +43,15 @@ app.route("/body-params").post((req, res) => {
 // Podem ser obtidos pelo request.PARAMS
 app.route("/route-params/:variavel").get((req, res) => {
   res.send(req.params.variavel);
+});
+
+// Estudando Query Params
+// Query Params tambem são passados/obtidos pela URL.
+// São obtidos após um interrogação ? na URL. Eles funcionam no estilo chave=valor
+// Ex: localhost:3000/query-params?nome=luiz&idade=27&filho=gustavo
+
+app.route("/query-params").get((req, res) => {
+  const { nome } = req.query;
+  // res.send(nome);
+  res.send(req.query);
 });
