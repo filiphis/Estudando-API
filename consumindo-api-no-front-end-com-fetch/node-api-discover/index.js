@@ -3,7 +3,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.listen(5500, () => console.log("Rodando na porta 5500"));
+app.listen(5501, () => console.log("Rodando na porta 5501"));
 
 app.use(cors());
 
@@ -13,6 +13,12 @@ let users = [
   {
     id: 1,
     name: "Luiz Silveira",
+    avatar: "https://avatars.githubusercontent.com/u/13370451?v=4",
+    city: "Cascavel",
+  },
+  {
+    id: 2,
+    name: "Gustavo Patricio da Silveira",
     avatar: "https://avatars.githubusercontent.com/u/13370451?v=4",
     city: "Cascavel",
   },
