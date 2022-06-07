@@ -29,10 +29,17 @@ app.route("/delete/:id").delete((req, res) => {
 
 // ----------
 
-// Estudando body params
+// Estudando Body Params
 // Body Params são os valores que são enviados no corpo da requisição, geralmente são enviados por formularios de cadastro
-// Podem ser obtidos pelo request.body
+// Podem ser obtidos pelo request.BODY
 app.route("/body-params").post((req, res) => {
   const { first_name, last_name, age } = req.body;
   res.send(first_name);
+});
+
+//Estudando Route Params
+// Route Params são valores enviadores pela rota/URL
+// Podem ser obtidos pelo request.PARAMS
+app.route("/route-params/:variavel").get((req, res) => {
+  res.send(req.params.variavel);
 });
