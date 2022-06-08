@@ -4,7 +4,7 @@ async function getUsers() {
   try {
     const response = await fetch(URL);
     const users = await response.json();
-    renderApiResult.innerHTML += `<br><br> <h1>Lista todos usuarios </h1> ${JSON.stringify(
+    renderApiResult.innerHTML += `<h1>Lista todos usuarios </h1> ${JSON.stringify(
       users
     )}`;
   } catch (error) {
@@ -18,20 +18,18 @@ async function getUserDetails(userID) {
   try {
     const response = await fetch(`${URL}/${userID}`);
     const user = await response.json();
-    renderApiResult.innerHTML += `<br><br> <h1>Lista detalhes do usuario </h1>`;
+    renderApiResult.innerHTML += `<h1>Lista detalhes do usuario </h1>`;
     userName.textContent = user.name;
     userCity.textContent = user.city;
     // userAvatar.setAttribute("src", `${user.avatar}`);
     userAvatar.src = user.avatar;
-
-    console.log(user);
   } catch (error) {
     console.log(error);
   }
 }
 
 // Buscando user manualmente, quando atualiza a pagina kk
-getUserDetails(6);
+getUserDetails(1);
 
 async function addUser(user) {
   const newUser = await fetch(URL, {
@@ -73,4 +71,19 @@ async function updateUser(updateValues, id) {
   alertApi.textContent = update;
 }
 
-updateUser(userUpdate, 6);
+//Atualiza o usuario
+// updateUser(userUpdate, 6);
+
+async function deleteUser(id) {
+  const response = await fetch(`${URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json; charset=UTF-8",
+    },
+  });
+
+  const data = await response.json();
+  alertApi.textContent = data;
+}
+
+deleteUser(3);
