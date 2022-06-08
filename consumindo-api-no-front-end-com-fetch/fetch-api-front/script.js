@@ -31,7 +31,7 @@ async function getUserDetails(userID) {
 }
 
 // Buscando user manualmente, quando atualiza a pagina kk
-getUserDetails(3);
+getUserDetails(6);
 
 async function addUser(user) {
   const newUser = await fetch(URL, {
@@ -52,4 +52,25 @@ const newUser = {
 };
 
 // Adiciona o user quando atualiza a pagina!
-addUser(newUser);
+// addUser(newUser);
+
+const userUpdate = {
+  name: "Rosaaaaaa Augusta",
+  avatar: "https://picsum.photos/600/600",
+  city: "Cascavel",
+};
+
+async function updateUser(updateValues, id) {
+  const response = await fetch(`${URL}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(updateValues),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+
+  const update = await response.json();
+  alertApi.textContent = update;
+}
+
+updateUser(userUpdate, 6);
