@@ -18,3 +18,34 @@ async function getUsers() {
     console.log(error);
   }
 }
+
+async function addUser(user) {
+  try {
+    const response = await axios.post(URL, user);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const formAddUser = document.querySelector("#formAddUser");
+
+formAddUser.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const newUser = getUserValues(event);
+  addUser(newUser);
+});
+
+function getUserValues(event) {
+  const name = formAddUser.querySelector("#inputName").value;
+  const avatar = formAddUser.querySelector("#inputAvatar").value;
+  const city = formAddUser.querySelector("#inputCity").value;
+
+  const newUser = {
+    name,
+    avatar,
+    city,
+  };
+
+  return newUser;
+}
