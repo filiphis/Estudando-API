@@ -54,14 +54,14 @@ const formAddUser = document.querySelector("#formAddUser");
 
 formAddUser.addEventListener("submit", (event) => {
   event.preventDefault();
-  const newUser = getUserValues(event);
+  const newUser = getUserValues(formAddUser);
   addUser(newUser);
 });
 
-function getUserValues(event) {
-  const name = formAddUser.querySelector("#inputName").value;
-  const avatar = formAddUser.querySelector("#inputAvatar").value;
-  const city = formAddUser.querySelector("#inputCity").value;
+function getUserValues(element) {
+  const name = element.querySelector("#inputName").value;
+  const avatar = element.querySelector("#inputAvatar").value;
+  const city = element.querySelector("#inputCity").value;
 
   const newUser = {
     name,
@@ -71,3 +71,19 @@ function getUserValues(event) {
 
   return newUser;
 }
+
+async function updateUser(id, userNewValues) {
+  const response = await axios.put(`${URL}/${id}`, userNewValues);
+
+  updateMessage.innerHTML = `<p class="successMessage">${response.data}</p>`;
+}
+
+const formUpdateUser = document.querySelector("#formUpdateUser");
+
+formUpdateUser.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const id = formUpdateUser.querySelector("#inputId").value;
+  const userNewValues = getUserValues(formUpdateUser);
+
+  updateUser(id, userNewValues);
+});
