@@ -6,7 +6,16 @@ async function getUsers() {
     const response = await axios.get(URL);
     const users = response.data.users;
 
-    users.forEach((user) => (renderApp.innerHTML += renderUser(user)));
+    users.forEach((user) => (renderApp.innerHTML += `${renderUser(user)}`));
+    const btnDelete = document.querySelectorAll("#deletarUser");
+
+    if (btnDelete) {
+      btnDelete.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          deleteUser(btn.value);
+        });
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -22,21 +31,25 @@ async function getUser() {
       return;
     }
     renderUsuario.innerHTML = renderUser(user);
-
-    console.log(user);
   } catch (error) {
     alert("Usuario não cadastrado!");
     console.log(error);
   }
 }
 
-function renderUser(user) {
+function renderUser(user, deleteOn) {
+  deleteOn = true;
   return `
   <div class="borderDiv">
     <p>Id: ${user.id}</p>
     <p>${user.name}</p>
     <img width="100" src="${user.avatar}" />
     <p>${user.city}</p>
+    <p>${
+      deleteOn
+        ? "<button id='deletarUser' value=" + user.id + ">Deletar</button>"
+        : ""
+    }</p>
   </div>
   `;
 }
@@ -44,7 +57,6 @@ function renderUser(user) {
 async function addUser(user) {
   try {
     const response = await axios.post(URL, user);
-    console.log(response);
   } catch (error) {
     console.log(error);
   }
@@ -87,3 +99,8 @@ formUpdateUser.addEventListener("submit", (event) => {
 
   updateUser(id, userNewValues);
 });
+
+async function deleteUser(id) {
+  const response = await axios.delete(`${URL}/${id}`);
+  return response.data;
+}
