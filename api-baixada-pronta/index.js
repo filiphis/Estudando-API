@@ -43,7 +43,7 @@ app.route("/api/:id").get((req, res) => {
 });
 
 app.route("/api").post((req, res) => {
-  const lastId = users[users.length - 1].id;
+  const lastId = users.length == 0 ? 0 : users[users.length - 1].id;
   users.push({
     id: lastId + 1,
     name: req.body.name,
